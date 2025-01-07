@@ -1,13 +1,3 @@
-# My Tourism Project
-
-Check out the live website: [Tourism in Nepal](https://tourism-in-nepal.vercel.app/)
-
-3. Save Changes:
-
-    After adding the link, scroll down and click on the Commit changes button to save your changes.
-
-Example README.md File:
-
 # Tourism in Nepal
 
 Welcome to the Tourism in Nepal project. This is a web application that showcases the beauty and culture of Nepal.
