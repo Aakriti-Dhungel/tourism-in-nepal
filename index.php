@@ -1,3 +1,30 @@
+<?php
+$error = '';
+$success = '';
+$name = '';
+$email = '';
+$message = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = htmlspecialchars(trim($_POST['name'] ?? ''));
+    $email = htmlspecialchars(trim($_POST['email'] ?? ''));
+    $message = htmlspecialchars(trim($_POST['message'] ?? ''));
+
+    if (empty($name) || empty($email) || empty($message)) {
+        $error = "Please fill in all fields.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = "Invalid email format.";
+    } else {
+        // Example: send mail or save to DB here (use the code from above)
+        // For demo:
+        $success = "Thank you, $name! Your message has been received.";
+        
+        // Clear form fields on success
+        $name = $email = $message = '';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +33,7 @@
     <meta name="description" content="Visit Nepal and experience the majestic Himalayas, rich culture, and adventure of a lifetime. Book your trek today!">
     <meta name="keywords" content="nepal, mountains, culture,tourism">
     <meta name="author" content="Aakriti Dhungel">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
 
 
     <title>Torism in Nepal</title>
@@ -153,18 +180,31 @@
      <section id="contact" class="contact py-5 ">
         <div class="container">
             <h2 class="text-center mb-4">Contact Us</h2>
-            <form action="#" method="POST">
+            <!-- Error Message -->
+
+            <?php if ($error): ?>
+                <div class="alert alert-danger"><?php echo $error; ?></div>
+            <?php endif; ?>
+
+            <?php if ($success): ?>
+                <div class="alert alert-success"><?php echo $success; ?></div>
+            <?php endif; ?>
+
+
+            <form action="process_contact.php" method="POST">
                 <div class="mb-3">
                     <label for="name" class="form-label">Full Name</label>
-                    <input type="text" class="form-control border border-3" id="name" required>
+                    <input type="text" name="name" id="name" class="form-control border border-3" value="<?php echo $name; ?>" required>
+
                 </div>                
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control border border-3" id="email" required>
+                    <input type="email" name="email" id="email" class="form-control border border-3" value="<?php echo $email; ?>" required>
+
                 </div>
                 <div class="mb-3">
                     <label for="message" class="form-label">Message</label>
-                    <textarea class="form-control border border-3" id="message" rows="4" required></textarea>
+                    <textarea name="message" id="message" class="form-control border border-3" rows="4" required><?php echo $message; ?></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary border border-3">Submit</button>
             </form>
@@ -173,10 +213,10 @@
 
     <!-- Footer -->
     <footer class="bg-dark text-light text-center py-4">
-        <p>&copy; 2024 Torism in Nepal. All rights reserved.</p>
+        <p>&copy; 2025 Torism in Nepal. All rights reserved.</p>
     </footer>
 
     <!-- Bootstrap JS, Popper, and jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+</html>d
